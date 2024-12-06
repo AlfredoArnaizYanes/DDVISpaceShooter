@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: b6d3c3004b670dc408370cac6b3ad5b0
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - disparoEnemigoPrefab: {fileID: 3927766708624471633, guid: 8a157b2072b16ba43be22eccb8e11bb9, type: 3}
+  - canonEnemigo: {instanceID: 0}
+  - explosionPrefab: {fileID: 8654974977875307961, guid: 76076086793d0654f91289d5a23838d4, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
