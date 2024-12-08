@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
+using Unity.VisualScripting.ReorderableList.Element_Adder_Menu;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,22 +11,14 @@ using UnityEngine.SceneManagement;
 public class MenuGameOver : MonoBehaviour
 {
 
-    [SerializeField] private GameObject elMenu;
-    private Player myPlayer;
+    private Canvas transicion;
 
-    private void Start()
+    
+    public void Start()
     {
-        //Debug.Log("Llegó hasta quí1");
-        //myPlayer = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-        //Debug.Log("Llegó hasta quí");
-        //myPlayer.MuerteJugador += ActivarMenu;
+        transicion = GetComponent<Canvas>();
+        StartCoroutine(cambioOrden());
     }
-
-    //private void ActivarMenu(object sender, EventArgs e)
-    //{
-    //    menuGameOver.SetActive(true);
-    //}
-
     public void Reiniciar()
     {
         SceneManager.LoadScene("Juego");
@@ -39,5 +33,11 @@ public class MenuGameOver : MonoBehaviour
     {
         UnityEditor.EditorApplication.isPlaying = false;
         Application.Quit();
+    }
+    IEnumerator cambioOrden()
+    {
+        yield return new WaitForSeconds(1.5f);
+        transicion.sortingOrder = 5;
+
     }
 }

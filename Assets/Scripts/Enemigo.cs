@@ -70,7 +70,7 @@ public class Enemigo : MonoBehaviour
         }
 
         timerLife += Time.deltaTime;
-        if (timerLife >= 5)
+        if (timerLife >= 6)
         {
             timerLife = 0;
             myEnemyPool.Release(this);
