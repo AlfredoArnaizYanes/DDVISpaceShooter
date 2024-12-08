@@ -5,6 +5,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Pool;
+using UnityEngine.SceneManagement;
 
 
 public class Player : MonoBehaviour
@@ -17,22 +18,33 @@ public class Player : MonoBehaviour
     [SerializeField] private TextMeshProUGUI textoVidas;
     [SerializeField] private TextMeshProUGUI textoScore;
     [SerializeField] private GameObject escudo;
+    [SerializeField] private AudioClip audioDisparo;
+    [SerializeField] private AudioClip audioDano;
 
+    private Vector3[] rotacionesDisparos =new[] { new Vector3(0, 0, 45), new Vector3(0, 0, -45), new Vector3(0, 0, 0) };
+
+    //Variable para manejar el AudioSource
+    private AudioSource componenteAudio;
 
     private int vidas = 5;
     private float temporizador;
     private int score =  0;
-
+    private bool tengoDisparoExtra = false;
     private ObjectPool<Disparo> pool;
 
     private bool inmune = false;
 
     public int Score { get => score; set => score = value; }
+    public GameObject Escudo { get => escudo; set => escudo = value; }
+    public bool TengoDisparoExtra { get => tengoDisparoExtra; set => tengoDisparoExtra = value; }
+
+   
+
 
     private void Awake()
     {
         pool = new ObjectPool<Disparo>(CreateDisparo, null, ReleaseDisparo, DestroyDisparo);
-
+        
     }
 
 
@@ -40,6 +52,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         escudo.SetActive(false);
+        componenteAudio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -74,38 +87,49 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D (Collider2D elOtro)
     {
-        if(elOtro.gameObject.CompareTag("DisparoEnemigo") || elOtro.gameObject.CompareTag("Enemigo"))
+        if (elOtro.gameObject.CompareTag("DisparoEnemigo") || elOtro.gameObject.CompareTag("Enemigo"))
         {
             if (inmune == false)
             {
+                componenteAudio.PlayOneShot(audioDano);
                 Destroy(elOtro.gameObject);
-                if (vidas!=0){
+                if (vidas != 0) {
+                   
                     vidas -= 1;
                 }
-                
+
                 textoVidas.text = "Vidas: " + vidas;
                 if (vidas == 0)
                 {
-                    Debug.Log("tengo 0 vidas");
-                    Destroy(this.gameObject);
+                    Destroy(this.gameObject, 2f);
+                    SceneManager.LoadScene("MenuGameOver");
+
                 }
                 else
                 {
                     StartCoroutine(ReciboDanoSoyInmune());
                 }
-                
+
             }
             else
             {
                 Destroy(elOtro.gameObject);
             }
-            
+
         }
         else if (elOtro.gameObject.CompareTag("Escudo"))
         {
             Destroy(elOtro.gameObject);
             StartCoroutine(TratamientoEscudo());
         }
+        else if (elOtro.gameObject.CompareTag("DisparoExtra"))
+        {
+            Destroy(elOtro.gameObject);
+            tengoDisparoExtra = true;
+            StartCoroutine(TratamientoDisparoExtra());
+             
+        }
+
     }
 
     void Movimiento()
@@ -125,20 +149,37 @@ public class Player : MonoBehaviour
     void Disparar()
     {
         temporizador += 1 * Time.deltaTime;
-
         if (Input.GetKey(KeyCode.Space) && temporizador >= ratioDisparo)
         {
-            for(int i = 0; i < 2; i++)
+            componenteAudio.PlayOneShot(audioDisparo);
+            if (!tengoDisparoExtra)
             {
-                //Instantiate(disparoPrefab, canon1.transform.position, Quaternion.identity);
-                //Instantiate(disparoPrefab, canon2.transform.position, Quaternion.identity);
-                //temporizador = 0;
-                Disparo copiaDisparo = pool.Get();
-                copiaDisparo.gameObject.SetActive(true);
-                copiaDisparo.transform.position = canones[i].transform.position;
+                for (int i = 0; i < 2; i++)
+                {
+                    
+                    Disparo copiaDisparo = pool.Get();
+                    copiaDisparo.gameObject.SetActive(true);
+                    copiaDisparo.transform.position = canones[i].transform.position;
+                    copiaDisparo.transform.eulerAngles = new Vector3 (0, 0, 0); 
+                }
+                
+                temporizador = 0;
             }
-            temporizador = 0;
-            
+            else if (tengoDisparoExtra)
+            {
+               
+                for (int i = 0; i < 3; i++)
+                {
+                    
+                    Disparo copiaDisparo = pool.Get();
+                    copiaDisparo.gameObject.SetActive(true);
+                    copiaDisparo.transform.position = canones[i].transform.position;
+                    copiaDisparo.transform.eulerAngles = rotacionesDisparos[i];
+                    
+                }
+                
+                temporizador = 0;
+            }
         }
     }
 
@@ -158,5 +199,16 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(6f);
         escudo.SetActive(false);
     }
-    
+    IEnumerator TratamientoDisparoExtra()
+    {
+        tengoDisparoExtra = true;
+        yield return new WaitForSeconds(6f);
+        tengoDisparoExtra = false;
+    }
 }
+        
+        
+
+
+    
+

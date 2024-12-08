@@ -8,6 +8,7 @@ TagManager:
   - DisparoPlayer
   - Enemigo
   - Escudo
+  - DisparoExtra
   layers:
   - Default
   - TransparentFX

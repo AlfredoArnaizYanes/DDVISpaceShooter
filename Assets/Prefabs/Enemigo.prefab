@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5.50539, y: 1.220435, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1848580785194530791}
@@ -53,6 +53,9 @@ MonoBehaviour:
   canonEnemigo: {fileID: 1860538265044635541}
   explosionPrefab: {fileID: 8654974977875307961, guid: 76076086793d0654f91289d5a23838d4, type: 3}
   escudoPrefab: {fileID: 6521331727758411433, guid: 1e100ba5c98f8f34990abb12b40a3e4e, type: 3}
+  disparoExtraPrefab: {fileID: 8353715796641169732, guid: 5bb70f1ec88920243936ec36863817a3, type: 3}
+  audioDisparoEnemigo: {fileID: 8300000, guid: 313cd7b574523c847aabb3375d86fa78, type: 3}
+  audioDanoEnemigo: {fileID: 8300000, guid: aa6f8d9ed51f4eb46bbd0e309b0a5aee, type: 3}
 --- !u!61 &-1448507124877946863
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -85,7 +88,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.008538723, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -96,7 +99,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.94449997, y: 1}
   m_EdgeRadius: 0
 --- !u!50 &7888713571794187827
 Rigidbody2D:
@@ -150,7 +153,7 @@ Transform:
   m_GameObject: {fileID: 1860538265044635541}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.962, y: 0.011, z: 0}
+  m_LocalPosition: {x: -0.654, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -181,13 +184,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8588081346287673681}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 0}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6736241021073944876}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!212 &1187840611434798537
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -229,12 +232,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: -341583076, guid: 6938e0c12950bd648a3d863c37623944, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8ae3654b9e240154ca815a585150acf5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.2, y: 0.16}
+  m_Size: {x: 2.36, y: 1.77}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

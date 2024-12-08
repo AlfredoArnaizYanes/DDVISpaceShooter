@@ -15,10 +15,12 @@ public class Enemigo : MonoBehaviour
     [SerializeField] private GameObject canonEnemigo;
     [SerializeField] private GameObject explosionPrefab;
     [SerializeField] private GameObject escudoPrefab;
+    [SerializeField] private GameObject disparoExtraPrefab;
+   
 
 
     private float timerLife = 0;
-    private float probEscudo;
+    private float probBonus;
     private ObjectPool<Disparo> pool;
 
     private ProfeDisparadoEnemigos oleada;
@@ -28,6 +30,9 @@ public class Enemigo : MonoBehaviour
     //Declaración de la piscina para manejar las naves enemigas
     private ObjectPool<Enemigo> myEnemyPool;
     public ObjectPool<Enemigo> MyEnemyPool { get => myEnemyPool; set => myEnemyPool = value; }
+
+    //Variable para manejar el AudioSource
+    private AudioSource componenteAudioEnemigo;
 
     //private int nave;
     //private int tiro;
@@ -43,8 +48,9 @@ public class Enemigo : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-          StartCoroutine(Disparar());
-    
+        StartCoroutine(Disparar());
+        componenteAudioEnemigo = GetComponent<AudioSource>();
+
     }
 
 
@@ -135,15 +141,20 @@ public class Enemigo : MonoBehaviour
     {
         if (elOtro.gameObject.CompareTag("DisparoPlayer"))
         {
+            myPlayer.Score += 10;
+         
             Destroy(elOtro.gameObject);
             var copy = Instantiate(explosionPrefab,transform.position, Quaternion.identity);
-            Destroy(this.gameObject);
-            myPlayer.Score += 10;
             Destroy(copy, 0.2f);
-            probEscudo = UnityEngine.Random.Range(0f, 1f);
-            if (probEscudo < 0.25f)
+            Destroy(this.gameObject);
+            probBonus = UnityEngine.Random.Range(0f, 1f);
+            if (probBonus <= 0.2f && myPlayer.Escudo.activeInHierarchy==false)
             {
                 Instantiate(escudoPrefab, transform.position, Quaternion.identity);
+            }
+            else if (probBonus < 0.4f && myPlayer.TengoDisparoExtra==false)
+            {
+                Instantiate(disparoExtraPrefab, transform.position, Quaternion.identity);
             }
 
         }
