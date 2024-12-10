@@ -24,8 +24,8 @@ public class BalasNegras : MonoBehaviour
     void Update()
     {
 
-        tiempoRandom = Random.Range(1.5f, 2.5f);
-        componenteYRandom = Random.Range(-2f, 2f);
+        tiempoRandom = Random.Range(1.5f, 3.5f);
+        componenteYRandom = Random.Range(-3f, 3f);
         direccion = new Vector3(-1, componenteYRandom, 0);
 
         transform.Translate(direccion * velocidad * Time.deltaTime);
@@ -57,7 +57,7 @@ public class BalasNegras : MonoBehaviour
     }
     IEnumerator ExplosionBomba()
     {
-        for (int i = 0; i <= 7; i++)
+        for (int i = 0; i <= 6; i++)
         {
             Instantiate(balaFuegoPrefab, direccionesDisparo[i].transform.position, Quaternion.Euler(direccionesDisparo[i].transform.eulerAngles.x, direccionesDisparo[i].transform.eulerAngles.y, direccionesDisparo[i].transform.eulerAngles.z));
            

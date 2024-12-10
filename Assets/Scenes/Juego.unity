@@ -141,7 +141,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!95 &278426732
 Animator:
   serializedVersion: 5
@@ -1431,6 +1431,7 @@ MonoBehaviour:
   escudo: {fileID: 1146250890}
   audioDisparo: {fileID: 8300000, guid: 313cd7b574523c847aabb3375d86fa78, type: 3}
   audioDano: {fileID: 8300000, guid: 4156deb1384de964990a144aa723b28f, type: 3}
+  myJefe: {fileID: 910878680}
 --- !u!4 &874095693
 Transform:
   m_ObjectHideFlags: 0
@@ -1619,6 +1620,37 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &900790972
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 900790973}
+  m_Layer: 0
+  m_Name: canonJefe5
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &900790973
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 900790972}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.65, y: 0.76, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 910878681}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &910878679
 GameObject:
   m_ObjectHideFlags: 0
@@ -1655,6 +1687,7 @@ MonoBehaviour:
   - {fileID: 700065105}
   - {fileID: 2088965558}
   - {fileID: 920305170}
+  - {fileID: 900790973}
   balaNegraPrefab: {fileID: 6668545362765331126, guid: 9d28bd0cad16e7940b8b7974271add90, type: 3}
   explosion: {fileID: 8300000, guid: f7efa6dfd73210046a4649a93cb9a9dc, type: 3}
   barraVida: {fileID: 1770453455}
@@ -1677,6 +1710,7 @@ Transform:
   - {fileID: 700065105}
   - {fileID: 2088965558}
   - {fileID: 920305170}
+  - {fileID: 900790973}
   - {fileID: 1644671694}
   - {fileID: 1789868483}
   - {fileID: 1675365972}
@@ -3517,7 +3551,7 @@ Transform:
   m_GameObject: {fileID: 2088965557}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.81, y: -0.99, z: 0}
+  m_LocalPosition: {x: 2.21, y: -1.53, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

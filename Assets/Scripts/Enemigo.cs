@@ -18,8 +18,6 @@ public class Enemigo : MonoBehaviour
     [SerializeField] private GameObject disparoExtraPrefab;
     [SerializeField] private GameObject vidaExtraPrefab;
     
-   
-
 
     private float timerLife = 0;
     private float probBonus;
@@ -32,11 +30,12 @@ public class Enemigo : MonoBehaviour
     //Declaración de la piscina para manejar las naves enemigas
     private ObjectPool<Enemigo> myEnemyPool;
     public ObjectPool<Enemigo> MyEnemyPool { get => myEnemyPool; set => myEnemyPool = value; }
+    
 
     //Variable para manejar el AudioSource
     private AudioSource componenteAudioEnemigo;
 
-    
+    private Sprite Apariencia1;
     
 
     private void Awake()
@@ -45,6 +44,7 @@ public class Enemigo : MonoBehaviour
 
         generator = FindObjectOfType<DisparadorEnemigos>();
         myPlayer = FindObjectOfType<Player>();
+        
     }
     
     // Start is called before the first frame update

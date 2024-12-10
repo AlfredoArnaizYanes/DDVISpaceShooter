@@ -3,7 +3,11 @@ guid: dd9e7e7e25b815149aa29e7e936f2008
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - enemigoPrefab: {fileID: -3341239869960491455, guid: f27b107e973f53e4b9feed39e04f8062, type: 3}
+  - textoOleada: {instanceID: 0}
+  - myJefe: {instanceID: 0}
+  - myPlayer: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

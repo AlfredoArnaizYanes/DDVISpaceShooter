@@ -12,13 +12,14 @@ public class DisparadorEnemigos : MonoBehaviour
     [SerializeField] private TextMeshProUGUI textoOleada;
     [SerializeField] private Jefe myJefe;
     [SerializeField] private Player myPlayer;
+   
     
 
     private Vector2 direccion = new Vector3(0, 1, 0);
     private Vector3 posicionSalida;
     private float numeroRandom;
     private int numNaves = 27;
-    
+    private int tipo = 0;
 
 
 
@@ -27,6 +28,7 @@ public class DisparadorEnemigos : MonoBehaviour
     private bool ultimaOleada = false;
     public bool UltimaOleada { get => ultimaOleada; set => ultimaOleada = value; }
     public int NumNaves { get => numNaves; set => numNaves = value; }
+
     //public int EnemigoNumero { get => enemigoNumero; set => enemigoNumero = value; }
 
     private ObjectPool<Enemigo> enemyPool;
@@ -34,7 +36,9 @@ public class DisparadorEnemigos : MonoBehaviour
 
     private void Awake()
     {
+        
         enemyPool = new ObjectPool<Enemigo>(CreateEnemigo, GetEnemigo, ReleaseEnemigo, DestroyEnemigo);
+        
         //myJefe = FindObjectOfType<Jefe>();
     }
 
@@ -80,7 +84,7 @@ public class DisparadorEnemigos : MonoBehaviour
     }
     IEnumerator DispararEnemigos()
     {
-        for(int i = 0; i<3; i++)
+        for(int i=0; i<3; i++)
         {
             for (int j = 0; j < 3; j++)
             {
@@ -92,8 +96,10 @@ public class DisparadorEnemigos : MonoBehaviour
                         ultimaOleada = true;
                     }
                     posicionSalida = new Vector3(transform.position.x, Random.Range(-4.2f, 4.2f), 0);
-                    
+                    tipo = i;
+
                     //Instantiate(enemigoPrefab, posicionSalida, Quaternion.identity);
+
                     enemyPool.Get();
                     //enemigoNumero += 1;
                     yield return new WaitForSeconds(1f);
@@ -128,7 +134,7 @@ public class DisparadorEnemigos : MonoBehaviour
 
 
         myJefe.gameObject.SetActive(true);
-        for (int i = 6; i <= 9; i++)
+        for (int i = 7; i <= 10; i++)
         {
             myJefe.gameObject.transform.GetChild(i).gameObject.SetActive(false);
         }

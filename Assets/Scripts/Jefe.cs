@@ -19,6 +19,9 @@ public class Jefe : MonoBehaviour
     private int indice1;
     private int indice2;
     private AudioSource componenteAudio;
+    private bool ganaste = false;
+
+    public bool Ganaste { get => ganaste; set => ganaste = value; }
 
     // Start is called before the first frame update
     void Start()
@@ -43,16 +46,14 @@ public class Jefe : MonoBehaviour
     {
         while(vidaJefe > 0)
         {
-            indice1 = Random.Range(0, 4);
-            indice2 = Random.Range(0, 4);
-            while (indice2 == indice1)
-            {
-                indice2 = Random.Range(0, 4);
-            }
+            indice1 = Random.Range(0, 2);
+            indice2 = Random.Range(3, 4);
+            
             Instantiate(balaNegraPrefab, canonesJefe[indice1].transform.position, Quaternion.identity);
+            Instantiate(balaNegraPrefab, canonesJefe[4].transform.position, Quaternion.identity);
             Instantiate(balaNegraPrefab, canonesJefe[indice2].transform.position, Quaternion.identity);
 
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(1.5f);
         }
     }
 
@@ -81,7 +82,9 @@ public class Jefe : MonoBehaviour
         yield return new WaitForSeconds(1f);
         if (vidaJefe <= 0)
         {
-            SceneManager.LoadScene("MenuYouWin");
+            ganaste = true;
+            barraVida.gameObject.SetActive(false);
+            Destroy(this.gameObject,1f);
         }
 
 

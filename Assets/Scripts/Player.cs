@@ -20,20 +20,23 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject escudo;
     [SerializeField] private AudioClip audioDisparo;
     [SerializeField] private AudioClip audioDano;
+    [SerializeField] private Jefe myJefe;
 
     private Vector3[] rotacionesDisparos =new[] { new Vector3(0, 0, 45), new Vector3(0, 0, -45), new Vector3(0, 0, 0) };
 
     //Variable para manejar el AudioSource
     private AudioSource componenteAudio;
 
-    private int vidas = 20;
+    private Vector3 posicionfinal = new Vector3(12, 0, 0);
+    
+    private int vidas = 10;
     private float temporizador;
     private int score =  0;
     private bool tengoDisparoExtra = false;
     private ObjectPool<Disparo> pool;
 
     private bool inmune = false;
-
+    private float reductorVelocidad = 0.5f;
     public int Score { get => score; set => score = value; }
     public GameObject Escudo { get => escudo; set => escudo = value; }
     public bool TengoDisparoExtra { get => tengoDisparoExtra; set => tengoDisparoExtra = value; }
@@ -67,6 +70,12 @@ public class Player : MonoBehaviour
         {
             SceneManager.LoadScene("MenuGameOver");
         }
+        
+        if (myJefe.Ganaste == true) 
+        {
+            StartCoroutine(TratamientoFinalJuego());
+        }
+
     }
 
     //MÉTODOS PARA MANEJAR LA PISCINA
@@ -145,17 +154,24 @@ public class Player : MonoBehaviour
 
     void Movimiento()
     {
-       
-        float inputH = Input.GetAxisRaw("Horizontal");
-        float inputV = Input.GetAxisRaw("Vertical");
-        transform.Translate(new Vector2(inputH, inputV).normalized * velocidad * Time.deltaTime);
+       if (myJefe.Ganaste == false)
+        {
+            float inputH = Input.GetAxisRaw("Horizontal");
+            float inputV = Input.GetAxisRaw("Vertical");
+            transform.Translate(new Vector2(inputH, inputV).normalized * velocidad * Time.deltaTime);
+        }
+        
     }
 
     void DelimitadorMovimiento()
     {
-        float restrinigidaX = Mathf.Clamp(transform.position.x, -8f, 8f);
-        float restrinigidaY = Mathf.Clamp(transform.position.y, -4.2f, 4.2f);
-        transform.position = new Vector3(restrinigidaX, restrinigidaY, 0);
+        if (myJefe.Ganaste == false)
+        {
+            float restrinigidaX = Mathf.Clamp(transform.position.x, -8f, 8f);
+            float restrinigidaY = Mathf.Clamp(transform.position.y, -4.2f, 4.2f);
+            transform.position = new Vector3(restrinigidaX, restrinigidaY, 0);
+        }
+            
     }
 
     void Disparar()
@@ -217,6 +233,16 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(6f);
         tengoDisparoExtra = false;
     }
+
+    IEnumerator TratamientoFinalJuego() 
+    {
+        transform.Translate((posicionfinal - transform.position).normalized * velocidad * reductorVelocidad * Time.deltaTime);
+        yield return new WaitForSeconds(5f);
+        SceneManager.LoadScene("MenuYouWin");
+    }
+
+
+
 }
         
         
