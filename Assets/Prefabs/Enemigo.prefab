@@ -54,8 +54,7 @@ MonoBehaviour:
   explosionPrefab: {fileID: 8654974977875307961, guid: 76076086793d0654f91289d5a23838d4, type: 3}
   escudoPrefab: {fileID: 6521331727758411433, guid: 1e100ba5c98f8f34990abb12b40a3e4e, type: 3}
   disparoExtraPrefab: {fileID: 8353715796641169732, guid: 5bb70f1ec88920243936ec36863817a3, type: 3}
-  audioDisparoEnemigo: {fileID: 8300000, guid: 313cd7b574523c847aabb3375d86fa78, type: 3}
-  audioDanoEnemigo: {fileID: 8300000, guid: aa6f8d9ed51f4eb46bbd0e309b0a5aee, type: 3}
+  vidaExtraPrefab: {fileID: 4652088526687276107, guid: cb0bacfc3248c94499f787329f7212f9, type: 3}
 --- !u!61 &-1448507124877946863
 BoxCollider2D:
   m_ObjectHideFlags: 0

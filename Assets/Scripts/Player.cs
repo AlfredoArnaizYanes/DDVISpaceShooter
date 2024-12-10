@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
     //Variable para manejar el AudioSource
     private AudioSource componenteAudio;
 
-    private int vidas = 5;
+    private int vidas = 20;
     private float temporizador;
     private int score =  0;
     private bool tengoDisparoExtra = false;
@@ -53,6 +53,7 @@ public class Player : MonoBehaviour
     {
         escudo.SetActive(false);
         componenteAudio = GetComponent<AudioSource>();
+        textoVidas.text = "Vidas: " + vidas;
     }
 
     // Update is called once per frame
@@ -62,7 +63,10 @@ public class Player : MonoBehaviour
         DelimitadorMovimiento();
         Disparar();
         textoScore.text = "Score: " + score;
-        
+        if (vidas <= 0)
+        {
+            SceneManager.LoadScene("MenuGameOver");
+        }
     }
 
     //MÉTODOS PARA MANEJAR LA PISCINA
@@ -85,16 +89,18 @@ public class Player : MonoBehaviour
     }
     //FIN DE LOS MÉTODOS PARA MANEJAR LA PISCINA
 
-    private void OnTriggerEnter2D (Collider2D elOtro)
+    private void OnTriggerEnter2D(Collider2D elOtro)
     {
-        if (elOtro.gameObject.CompareTag("DisparoEnemigo") || elOtro.gameObject.CompareTag("Enemigo"))
+        if (elOtro.gameObject.CompareTag("DisparoEnemigo") || elOtro.gameObject.CompareTag("Enemigo") || 
+            elOtro.gameObject.CompareTag("BalaJefeGrande")|| elOtro.gameObject.CompareTag("BalaFuegoJefe"))
         {
             if (inmune == false)
             {
                 componenteAudio.PlayOneShot(audioDano);
                 Destroy(elOtro.gameObject);
-                if (vidas != 0) {
-                   
+                if (vidas != 0)
+                {
+
                     vidas -= 1;
                 }
 
@@ -102,8 +108,6 @@ public class Player : MonoBehaviour
                 if (vidas == 0)
                 {
                     Destroy(this.gameObject, 2f);
-                    SceneManager.LoadScene("MenuGameOver");
-
                 }
                 else
                 {
@@ -127,13 +131,21 @@ public class Player : MonoBehaviour
             Destroy(elOtro.gameObject);
             tengoDisparoExtra = true;
             StartCoroutine(TratamientoDisparoExtra());
-             
-        }
 
+        }
+        else if (elOtro.gameObject.CompareTag("VidaExtra"))
+        {
+            Destroy(elOtro.gameObject);
+            vidas += 1;
+            textoVidas.text = "Vidas: " + vidas;
+
+        }
+        
     }
 
     void Movimiento()
     {
+       
         float inputH = Input.GetAxisRaw("Horizontal");
         float inputV = Input.GetAxisRaw("Vertical");
         transform.Translate(new Vector2(inputH, inputV).normalized * velocidad * Time.deltaTime);

@@ -16,6 +16,8 @@ public class Enemigo : MonoBehaviour
     [SerializeField] private GameObject explosionPrefab;
     [SerializeField] private GameObject escudoPrefab;
     [SerializeField] private GameObject disparoExtraPrefab;
+    [SerializeField] private GameObject vidaExtraPrefab;
+    
    
 
 
@@ -23,7 +25,7 @@ public class Enemigo : MonoBehaviour
     private float probBonus;
     private ObjectPool<Disparo> pool;
 
-    private ProfeDisparadoEnemigos oleada;
+    private DisparadorEnemigos generator;
 
     private Player myPlayer;
 
@@ -34,14 +36,14 @@ public class Enemigo : MonoBehaviour
     //Variable para manejar el AudioSource
     private AudioSource componenteAudioEnemigo;
 
-    //private int nave;
-    //private int tiro;
+    
+    
 
     private void Awake()
     {
         pool = new ObjectPool<Disparo>(CreateDisparo, GetDisparo, ReleaseDisparo,DestroyDisparo);
 
-        oleada = FindObjectOfType<ProfeDisparadoEnemigos>();
+        generator = FindObjectOfType<DisparadorEnemigos>();
         myPlayer = FindObjectOfType<Player>();
     }
     
@@ -59,7 +61,7 @@ public class Enemigo : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (oleada.UltimaOleada)
+        if (generator.UltimaOleada)
         {
             Movimiento();
             DelimitadorMovimiento();
@@ -108,7 +110,7 @@ public class Enemigo : MonoBehaviour
     //MÉTODOS PARA EL MOVIMIENTO NO LINEAL DE LOS ENEMIGOS
     void Movimiento()
     {
-        //arribaAbajo = Random.Range(0, 2);
+        
         transform.Translate(new Vector3(-1,Mathf.Cos(transform.position.x), 0) * velocidad * Time.deltaTime);
     }
     void DelimitadorMovimiento()
@@ -141,12 +143,19 @@ public class Enemigo : MonoBehaviour
     {
         if (elOtro.gameObject.CompareTag("DisparoPlayer"))
         {
-            myPlayer.Score += 10;
-         
             Destroy(elOtro.gameObject);
-            var copy = Instantiate(explosionPrefab,transform.position, Quaternion.identity);
+            var copy = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
             Destroy(copy, 0.2f);
+            
             Destroy(this.gameObject);
+
+            myPlayer.Score += 10;
+            generator.NumNaves -= 1;
+            Debug.Log("Quedan: " + generator.NumNaves);
+            
+            
+         
+           
             probBonus = UnityEngine.Random.Range(0f, 1f);
             if (probBonus <= 0.2f && myPlayer.Escudo.activeInHierarchy==false)
             {
@@ -156,6 +165,13 @@ public class Enemigo : MonoBehaviour
             {
                 Instantiate(disparoExtraPrefab, transform.position, Quaternion.identity);
             }
+            else if (probBonus > 0.9f)
+            {
+                Instantiate(vidaExtraPrefab, transform.position, Quaternion.identity);
+            }
+
+            
+                
 
         }
     }

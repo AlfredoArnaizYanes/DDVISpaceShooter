@@ -9,6 +9,9 @@ TagManager:
   - Enemigo
   - Escudo
   - DisparoExtra
+  - VidaExtra
+  - BalaJefeGrande
+  - BalaFuegoJefe
   layers:
   - Default
   - TransparentFX
