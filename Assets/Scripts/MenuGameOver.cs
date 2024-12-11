@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
-using Unity.VisualScripting.ReorderableList.Element_Adder_Menu;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -31,7 +30,6 @@ public class MenuGameOver : MonoBehaviour
 
     public void Salir()
     {
-        UnityEditor.EditorApplication.isPlaying = false;
         Application.Quit();
     }
     IEnumerator cambioOrden()
