@@ -218,7 +218,7 @@ MonoBehaviour:
   - {fileID: 1721407489664062560}
   - {fileID: 4161995041298719554}
   - {fileID: 2455808731541255800}
-  balaFuegoPrefab: {fileID: 4137603068242121856, guid: fdd7050edee148744a7f91dc4f30dc13, type: 3}
+  balaFuegoPrefab: {fileID: -8228139752591737719, guid: fdd7050edee148744a7f91dc4f30dc13, type: 3}
 --- !u!212 &5740766133766270652
 SpriteRenderer:
   m_ObjectHideFlags: 0

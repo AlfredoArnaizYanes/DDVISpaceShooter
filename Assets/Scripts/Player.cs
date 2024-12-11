@@ -29,7 +29,7 @@ public class Player : MonoBehaviour
 
     private Vector3 posicionfinal = new Vector3(12, 0, 0);
     
-    private int vidas = 10;
+    private int vidas = 30;
     private float temporizador;
     private int score =  0;
     private bool tengoDisparoExtra = false;

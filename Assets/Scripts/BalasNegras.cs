@@ -1,18 +1,45 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class BalasNegras : MonoBehaviour
 {
     [SerializeField] private float velocidad;
     [SerializeField] private Transform[] direccionesDisparo;
-    [SerializeField] private GameObject balaFuegoPrefab;
+    [SerializeField] private BalaFuego balaFuegoPrefab;
     private Vector3 direccion;
     private float timer = 0;
     private bool parpadeando = false;
     private float tiempoRandom;
     private float componenteYRandom;
-    
+
+    private ObjectPool<BalaFuego> poolBF;
+
+
+    private void Awake()
+    {
+        poolBF = new ObjectPool<BalaFuego>(CreateBalaFuego, null, ReleaseBalaFuego, DestroyBalaFuego);
+    }
+
+    private BalaFuego CreateBalaFuego()
+    {
+        //Debug.Log("Llego hasta aqui1");
+        BalaFuego copiaBalaFuego = Instantiate(balaFuegoPrefab, transform.position, Quaternion.identity);
+        copiaBalaFuego.MyPoolBF = poolBF;
+        return copiaBalaFuego;
+    }
+
+    private void ReleaseBalaFuego(BalaFuego bFuego)
+    {
+        bFuego.gameObject.SetActive(false);
+    }
+
+    private void DestroyBalaFuego(BalaFuego bFuego)
+    {
+        Destroy(bFuego.gameObject);
+    }
+
 
     // Start is called before the first frame update
     void Start()
@@ -59,8 +86,12 @@ public class BalasNegras : MonoBehaviour
     {
         for (int i = 0; i <= 6; i++)
         {
-            Instantiate(balaFuegoPrefab, direccionesDisparo[i].transform.position, Quaternion.Euler(direccionesDisparo[i].transform.eulerAngles.x, direccionesDisparo[i].transform.eulerAngles.y, direccionesDisparo[i].transform.eulerAngles.z));
-           
+            //Instantiate(balaFuegoPrefab, direccionesDisparo[i].transform.position, Quaternion.Euler(direccionesDisparo[i].transform.eulerAngles.x, direccionesDisparo[i].transform.eulerAngles.y, direccionesDisparo[i].transform.eulerAngles.z));
+            BalaFuego copiaBalaFuego = poolBF.Get();
+            copiaBalaFuego.gameObject.SetActive(true);
+            copiaBalaFuego.transform.position = direccionesDisparo[i].transform.position;
+            copiaBalaFuego.transform.eulerAngles = new Vector3 (direccionesDisparo[i].transform.eulerAngles.x, direccionesDisparo[i].transform.eulerAngles.y, direccionesDisparo[i].transform.eulerAngles.z);
+
         }
         yield return new WaitForSeconds(2f);
 
