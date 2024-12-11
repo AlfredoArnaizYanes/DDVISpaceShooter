@@ -110,7 +110,6 @@ public class DisparadorEnemigos : MonoBehaviour
             ultimaOleada = false;
         }
 
-        yield return new WaitForSeconds(2f);
 
         if (myPlayer.Score <= 500)
         {
@@ -125,7 +124,7 @@ public class DisparadorEnemigos : MonoBehaviour
                 yield return new WaitForSeconds(1f);
         }
 
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(2f);
 
         textoOleada.text = "Muy bien. Ahora te toca el jefe";
         yield return new WaitForSeconds(2f);

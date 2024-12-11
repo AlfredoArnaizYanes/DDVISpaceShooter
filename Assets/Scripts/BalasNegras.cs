@@ -13,6 +13,8 @@ public class BalasNegras : MonoBehaviour
     private bool parpadeando = false;
     private float tiempoRandom;
     private float componenteYRandom;
+    private int contadorLlamadasGet = 0;
+    private int contadorLlamadasCreate = 0;
 
     private ObjectPool<BalaFuego> poolBF;
 
@@ -24,7 +26,8 @@ public class BalasNegras : MonoBehaviour
 
     private BalaFuego CreateBalaFuego()
     {
-        //Debug.Log("Llego hasta aqui1");
+        contadorLlamadasCreate += 1;
+        Debug.Log("contador Llamadas al Create(): " + contadorLlamadasCreate);
         BalaFuego copiaBalaFuego = Instantiate(balaFuegoPrefab, transform.position, Quaternion.identity);
         copiaBalaFuego.MyPoolBF = poolBF;
         return copiaBalaFuego;
@@ -88,6 +91,8 @@ public class BalasNegras : MonoBehaviour
         {
             //Instantiate(balaFuegoPrefab, direccionesDisparo[i].transform.position, Quaternion.Euler(direccionesDisparo[i].transform.eulerAngles.x, direccionesDisparo[i].transform.eulerAngles.y, direccionesDisparo[i].transform.eulerAngles.z));
             BalaFuego copiaBalaFuego = poolBF.Get();
+            contadorLlamadasGet += 1;
+            Debug.Log("Contador de llamadas al Get(): " + contadorLlamadasGet);
             copiaBalaFuego.gameObject.SetActive(true);
             copiaBalaFuego.transform.position = direccionesDisparo[i].transform.position;
             copiaBalaFuego.transform.eulerAngles = new Vector3 (direccionesDisparo[i].transform.eulerAngles.x, direccionesDisparo[i].transform.eulerAngles.y, direccionesDisparo[i].transform.eulerAngles.z);

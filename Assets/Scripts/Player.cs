@@ -29,7 +29,7 @@ public class Player : MonoBehaviour
 
     private Vector3 posicionfinal = new Vector3(12, 0, 0);
     
-    private int vidas = 30;
+    private int vidas = 10;
     private float temporizador;
     private int score =  0;
     private bool tengoDisparoExtra = false;
@@ -103,7 +103,7 @@ public class Player : MonoBehaviour
         if (elOtro.gameObject.CompareTag("DisparoEnemigo") || elOtro.gameObject.CompareTag("Enemigo") || 
             elOtro.gameObject.CompareTag("BalaJefeGrande")|| elOtro.gameObject.CompareTag("BalaFuegoJefe"))
         {
-            if (inmune == false)
+            if (inmune == false && myJefe.Ganaste==false)
             {
                 componenteAudio.PlayOneShot(audioDano);
                 Destroy(elOtro.gameObject);

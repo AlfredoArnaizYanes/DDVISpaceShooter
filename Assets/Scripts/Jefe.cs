@@ -1,6 +1,7 @@
 //using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -21,6 +22,11 @@ public class Jefe : MonoBehaviour
     private AudioSource componenteAudio;
     private bool ganaste = false;
 
+    private Vector3 posFinal = new Vector3 (2.75f,-0.7f,0f);
+    private float velocidadJefe = 2f;
+
+    
+
     public bool Ganaste { get => ganaste; set => ganaste = value; }
 
     // Start is called before the first frame update
@@ -34,6 +40,13 @@ public class Jefe : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if((posFinal - transform.position).magnitude > 0.1){
+            Debug.Log("Me estoy moviendo");
+            transform.Translate((posFinal - transform.position).normalized * velocidadJefe * Time.deltaTime);
+        }
+            
+        
+
         if (vidaJefe <= 0)
         {
             StartCoroutine(GranExplosion());    
@@ -44,16 +57,17 @@ public class Jefe : MonoBehaviour
 
     IEnumerator DisparosJefe()
     {
+        
         while(vidaJefe > 0)
         {
             indice1 = Random.Range(0, 2);
             indice2 = Random.Range(3, 4);
-            
+
             Instantiate(balaNegraPrefab, canonesJefe[indice1].transform.position, Quaternion.identity);
             Instantiate(balaNegraPrefab, canonesJefe[4].transform.position, Quaternion.identity);
             Instantiate(balaNegraPrefab, canonesJefe[indice2].transform.position, Quaternion.identity);
 
-            yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1.5f);
         }
     }
 
