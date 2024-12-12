@@ -10,12 +10,12 @@ using UnityEngine.SceneManagement;
 public class MenuGameOver : MonoBehaviour
 {
 
-    private Canvas transicion;
+    private Canvas myCanvas;
 
     
     public void Start()
     {
-        transicion = GetComponent<Canvas>();
+        myCanvas = GetComponent<Canvas>();
         StartCoroutine(cambioOrden());
     }
     public void Reiniciar()
@@ -35,7 +35,7 @@ public class MenuGameOver : MonoBehaviour
     IEnumerator cambioOrden()
     {
         yield return new WaitForSeconds(1.5f);
-        transicion.sortingOrder = 5;
+        myCanvas.sortingOrder = 5;
 
     }
 }

@@ -18,41 +18,45 @@ public class Enemigo : MonoBehaviour
     [SerializeField] private GameObject disparoExtraPrefab;
     [SerializeField] private GameObject vidaExtraPrefab;
     
-
+    //Variable para controlar el tiempo de vida de los enemigos, si lo sobrepasamos los metemos en la piscina
     private float timerLife = 0;
+
+    //Variable en la que guardaremos un valor Random que nos dirá si la nave enemiga nos proporciona un Bonus
     private float probBonus;
+
+    //Creamos la piscina donde se almacenarán los disparos
     private ObjectPool<Disparo> pool;
 
+    //Instancia de la clase DisparadorEnemigos para podernos comunicar con el DispardorEnemigos.
+    //No me permitía añadirlo como un [SerialiField] al tratarse de un prefab que no está en la escena de juego 
     private DisparadorEnemigos generator;
 
+    //Instancia de la clase Player para poder comunicarnos con el Player. Ocurre lo mismo que con el DisparadosEnemigos de la linea anterior
     private Player myPlayer;
 
-    //Declaración de la piscina para manejar las naves enemigas
+    //Declaración de la piscina para manejar las naves enemigas...
     private ObjectPool<Enemigo> myEnemyPool;
+    //... y la encapsulamos
     public ObjectPool<Enemigo> MyEnemyPool { get => myEnemyPool; set => myEnemyPool = value; }
+
+
     
-
-    //Variable para manejar el AudioSource
-    private AudioSource componenteAudioEnemigo;
-
-    private Sprite Apariencia1;
-    
-
     private void Awake()
     {
+        //Preparamos la piscina de los disparos...
         pool = new ObjectPool<Disparo>(CreateDisparo, GetDisparo, ReleaseDisparo,DestroyDisparo);
 
+        //... y localizamos los Objetos tipo DisparadorEnemigos y Player, que al ser únicos en el juego no da problemas, según leí por algún lado.
+        //Me imagino que si hubiera varios objetos de ese tipo en el juego habrá otra manera de buscar uno en concreto mediante Tags o algo así.
         generator = FindObjectOfType<DisparadorEnemigos>();
         myPlayer = FindObjectOfType<Player>();
         
     }
     
-    // Start is called before the first frame update
+    //Los enemigos no se lo piensan y nos disparan desde que aparecen en pantalla
     void Start()
     {
         StartCoroutine(Disparar());
-        componenteAudioEnemigo = GetComponent<AudioSource>();
-
     }
 
 
@@ -61,16 +65,20 @@ public class Enemigo : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Si estamos en la última oleada de cada nivel, las naves cambian su forma de moverse. De ahí la necesidad de comunicarnos con el DisparadorEnemigos
+        //Lo hacemos mediante la propiedad UltimaOleada
         if (generator.UltimaOleada)
         {
+            //Método que implementa el movimiento sinusoidal de la última oleada de cada nivel
             Movimiento();
             DelimitadorMovimiento();
         }
         else
         {
+            //Si no estamos en la última oleada las naves enemigas se mueven horizontalmente de derecha a izquierda
             transform.Translate(new Vector3(-1, 0, 0) * velocidad * Time.deltaTime);
         }
-
+        //Controlamos el tiempo de vida de los enemigos, para mandarlos a la piscina
         timerLife += Time.deltaTime;
         if (timerLife >= 6)
         {
@@ -110,7 +118,8 @@ public class Enemigo : MonoBehaviour
     //MÉTODOS PARA EL MOVIMIENTO NO LINEAL DE LOS ENEMIGOS
     void Movimiento()
     {
-        
+        //Usamos la función matemáticas coseno  de manera que la componente y sea el coseno de la componente x
+        //Así en su movimiento dibujan la gráfica de la función
         transform.Translate(new Vector3(-1,Mathf.Cos(transform.position.x), 0) * velocidad * Time.deltaTime);
     }
     void DelimitadorMovimiento()
@@ -119,20 +128,21 @@ public class Enemigo : MonoBehaviour
         float restrinigidaY = Mathf.Clamp(transform.position.y, -4.2f, 4.2f);
         transform.position = new Vector3(transform.position.x, restrinigidaY, 0);
     }
+    //FIN DE MÉTODOS PARA EL MOVIMIENTO NO LINEAL DE LOS ENEMIGOS
 
+    //A los enemigos les gusta dispararnos... y además reciclan sus disparos.
     IEnumerator Disparar()
     {
-        
         while (true)        
         {
-            //Pedimos a la piscina que nos de un disparo, ella sabe si tiene que crearlo porque está vacia, llama al CreateDisparo, o si puede cogerlo porque hay en la
-            //piscina, llama al GetDisparo
             pool.Get();
             yield return new WaitForSeconds(1f);
         }
     }
 
-    public void dispararR()
+    //Las naves enemigas que volvían de la piscina de naves no disparaban, y está es la única solución que encontré para que lo hiciesen.
+    //En la memoria del Proyecto describo con detalle el problema
+    public void DispararR()
     {
         StartCoroutine(Disparar());
     }
@@ -141,22 +151,26 @@ public class Enemigo : MonoBehaviour
     //COLISIÓN DE LOS DISPAROS DEL JUGADOR CON LAS NAVES ENEMIGAS
     private void OnTriggerEnter2D(Collider2D elOtro)
     {
+        //Si los disparos del Player colisonan con los enemigos...
         if (elOtro.gameObject.CompareTag("DisparoPlayer"))
         {
+            //... se destruyen...
             Destroy(elOtro.gameObject);
+            //... instanciamos una explosión...
             var copy = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+            //... que destruimos a los 0.2 segundos...
             Destroy(copy, 0.2f);
-            
+            //... y destruimos a la nave enemiga
             Destroy(this.gameObject);
 
+            //Aumentamos la puntuación en 10 accediendo a la propiedad Score de la clase Player 
             myPlayer.Score += 10;
-            generator.NumNaves -= 1;
-            Debug.Log("Quedan: " + generator.NumNaves);
             
-            
-         
-           
+            //Generamos un float Random entre 0 y 1
             probBonus = UnityEngine.Random.Range(0f, 1f);
+
+            //Dependiendo del valor de probBonus, instanciamos un bonus de algún tipo o no obtenemos bonus.
+            //La necesidad de la segunda condición de este if se explica en la Memoria que se adjunta con este proyecto 
             if (probBonus <= 0.2f && myPlayer.Escudo.activeInHierarchy==false)
             {
                 Instantiate(escudoPrefab, transform.position, Quaternion.identity);

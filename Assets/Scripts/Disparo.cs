@@ -5,6 +5,7 @@ using UnityEngine.Pool;
 
 public class Disparo : MonoBehaviour
 {
+    //Este scrpt creo que es identico al que se proponía en los videos de ayuda, aunque se implementó la piscina que recicla los disparos.
     [SerializeField] private float velocidad;
     [SerializeField] private Vector3 direccion;
 

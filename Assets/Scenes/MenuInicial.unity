@@ -936,7 +936,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Start Crash
+  m_text: Star Crash
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4b9dd9763895334429ef06f9ee6da844, type: 2}
   m_sharedMaterial: {fileID: 4311211322636902903, guid: 4b9dd9763895334429ef06f9ee6da844, type: 2}

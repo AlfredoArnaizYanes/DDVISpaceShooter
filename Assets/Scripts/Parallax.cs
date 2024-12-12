@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Parallax : MonoBehaviour
 {
+    //Este scrpt creo que es identico al que se proponía en los videos de ayuda.
     [SerializeField] private float velocidad;
     [SerializeField] private float anchoImagen;
 
@@ -19,11 +20,6 @@ public class Parallax : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //transform.Translate(new Vector3(-1,0,0)*velocidad*Time.deltaTime);
-        //if(transform.position.x <= -22.73f)
-        //{
-
-            transform.position = posicionInicial + direccion*((velocidad * Time.time) % anchoImagen);
-        //}
+        transform.position = posicionInicial + direccion*((velocidad * Time.time) % anchoImagen);        
     }
 }

@@ -16,9 +16,11 @@ public class Escudo : MonoBehaviour
         
     }
 
+    //Este escudo destruye todo lo malo
     private void OnTriggerEnter2D(Collider2D elOtro)
     {
-        if (elOtro.gameObject.CompareTag("DisparoEnemigo") || elOtro.gameObject.CompareTag("Enemigo"))
+        if (elOtro.gameObject.CompareTag("DisparoEnemigo") || elOtro.gameObject.CompareTag("Enemigo") ||
+            elOtro.gameObject.CompareTag("BalaJefeGrande") || elOtro.gameObject.CompareTag("BalaFuegoJefe"))
         {
                 Destroy(elOtro.gameObject);
         }

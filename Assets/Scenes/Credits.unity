@@ -179,7 +179,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'START CRASH
+  m_text: 'STAR CRASH
 
 
 '
@@ -259,6 +259,74 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 50013569}
   m_CullTransparentMesh: 1
+--- !u!1 &193356473
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 193356475}
+  - component: {fileID: 193356474}
+  m_Layer: 0
+  m_Name: Video Player
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!328 &193356474
+VideoPlayer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 193356473}
+  m_Enabled: 1
+  m_VideoClip: {fileID: 32900000, guid: 20b9464e6c2c69348a4177d8d090589d, type: 3}
+  m_TargetCameraAlpha: 0.362
+  m_TargetCamera3DLayout: 0
+  m_TargetCamera: {fileID: 2115230664}
+  m_TargetTexture: {fileID: 0}
+  m_TimeReference: 0
+  m_TargetMaterialRenderer: {fileID: 0}
+  m_TargetMaterialProperty: <noninit>
+  m_RenderMode: 1
+  m_AspectRatio: 2
+  m_DataSource: 0
+  m_TimeUpdateMode: 2
+  m_PlaybackSpeed: 1
+  m_AudioOutputMode: 2
+  m_TargetAudioSources:
+  - {fileID: 0}
+  m_DirectAudioVolumes:
+  - 1
+  m_Url: 
+  m_EnabledAudioTracks: 01
+  m_DirectAudioMutes: 00
+  m_ControlledAudioTrackCount: 1
+  m_PlayOnAwake: 1
+  m_SkipOnDrop: 1
+  m_Looping: 0
+  m_WaitForFirstFrame: 1
+  m_FrameReadyEventEnabled: 0
+  m_VideoShaders: []
+--- !u!4 &193356475
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 193356473}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 15.844763, y: 179.76826, z: -11.957713}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &322663438
 GameObject:
   m_ObjectHideFlags: 0
@@ -765,8 +833,9 @@ MonoBehaviour:
     obtenidos de Pixabay creados por CHAKONG, freesound_community y SoundReallity.\n\nGracias
     a mis hijos por echar horas probando este juego y darme ideas para que yo las
     pusiese en practica.\n\nCancion creditos finales: Arcoiris por Los Iniciados,
-    extraida de EL Cantor De Jazz. Un produccion de DRO, S.L. 1982\n\nFuerteventura
-    - Gran Tarajal - 2024\n\n"
+    extraida de EL Cantor De Jazz. Un produccion de DRO, S.L. 1982\n\nVideo creditos
+    finales: Fragmentos de la pel\xEDcula Star Crash. Dirigida por Luigi Cozzi en
+    1978. Cinecitta S.P.A.\n\nFuerteventura - Gran Tarajal - 2024\n\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4b9dd9763895334429ef06f9ee6da844, type: 2}
   m_sharedMaterial: {fileID: 4311211322636902903, guid: 4b9dd9763895334429ef06f9ee6da844, type: 2}
@@ -1112,3 +1181,4 @@ SceneRoots:
   - {fileID: 1677794360}
   - {fileID: 1061058453}
   - {fileID: 1687769164}
+  - {fileID: 193356475}

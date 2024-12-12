@@ -5,10 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class MenuYouWin : MonoBehaviour
 {
-    private Canvas transicion;
+    private Canvas myCanvas;
     public void Start()
     {
-        transicion = GetComponent<Canvas>();
+        myCanvas = GetComponent<Canvas>();
         StartCoroutine(cambioOrden());
     }
     public void credits()
@@ -17,14 +17,13 @@ public class MenuYouWin : MonoBehaviour
     }
     public void exit()
     {
-        Debug.Log("Saliendo...");
         Application.Quit();
     }
 
     IEnumerator cambioOrden()
     {
         yield return new WaitForSeconds(1.5f);
-        transicion.sortingOrder = 5;
+        myCanvas.sortingOrder = 5;
 
     }
 }

@@ -11,7 +11,7 @@ public class MenuInicial : MonoBehaviour
     }
     public void exit()
     {
-        Debug.Log("Saliendo...");
+        //Debug.Log("Saliendo...");
         Application.Quit();
     }
 }
